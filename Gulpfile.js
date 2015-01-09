@@ -2,7 +2,8 @@ var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
 var istanbul = require('gulp-istanbul');
 var gulp = require('gulp');
-var runSequence = require('run-sequence')
+var runSequence = require('run-sequence');
+var coveralls = require('gulp-coveralls');
 
 gulp.task('lint/lib', function() {
   return gulp.src('lib/**/*.js')
@@ -33,6 +34,11 @@ gulp.task('coverage', function (cb) {
         .pipe(istanbul.writeReports({reporters:['lcov', 'text-summary']})) // Creating the reports after tests runned
         .on('end', cb);
     });
+});
+
+gulp.task('coveralls', ['coverage'], function () {
+  gulp.src('coverage/**/lcov.info')
+    .pipe(coveralls());
 });
 
 gulp.task('test', function(cb) {

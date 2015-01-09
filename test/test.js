@@ -78,8 +78,11 @@ describe('Node', function() {
     var node = new DS.Node("Hello");
     node.addAction(action);
     
-    console.log(node);
-    //assert(node.actions.One.params.
+    var nodeMap = node.toMap();
+    
+    assert(nodeMap.actions[0].name === 'One');
+    assert(nodeMap.actions[0].parameters[0].name === 'one');
+    assert(nodeMap.actions[0].results[0].name === 'three');
   });
 });
 
